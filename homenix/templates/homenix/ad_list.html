@@ -1,0 +1,13 @@
+{% for ad in ads %}
+  <div class="card mb-3">
+    <div class="card-body">
+      <h5>{{ ad.title }}</h5>
+      <p>{{ ad.description }}</p>
+      <p>Contact: {{ ad.contact }} | ₹{{ ad.price }}</p>
+      <a href="{{ ad.file.url }}" download>Download</a>
+      {% if ad.user == request.user %}
+        <a href="{% url 'delete_ad' ad.id %}" class="btn btn-danger btn-sm">Delete</a>
+      {% endif %}
+    </div>
+  </div>
+{% endfor %}

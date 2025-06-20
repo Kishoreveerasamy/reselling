@@ -1,0 +1,24 @@
+# Ignore virtual environments
+venv/
+new_venv/
+
+# Ignore compiled files
+__pycache__/
+*.py[cod]
+
+# Ignore DB files
+*.sqlite3
+
+# Ignore environment files
+.env
+
+# Ignore IDE/project settings
+.vscode/
+.idea/
+
+# Ignore media/uploads (optional)
+media/
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
