@@ -1,86 +1,99 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Homenix - Home</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        #filters {
-            display: none;
-        }
-    </style>
-</head>
-<body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
-        <a class="navbar-brand" href="#">Homenix</a>
-        <div class="collapse navbar-collapse justify-content-end">
-            <ul class="navbar-nav">
-                <li class="nav-item"><a class="nav-link" href="#">About</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Properties</a></li>
+{% extends "base.html" %}
 
-                {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a href="{% url 'post_ad' %}" class="btn btn-success me-2">Post Ad</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{% url 'logout' %}" class="btn btn-outline-light">Logout</a>
-                    </li>
-                {% else %}
-                    <li class="nav-item">
-                        <a href="{% url 'login' %}" class="btn btn-primary me-2">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{% url 'register' %}" class="btn btn-outline-primary">Register</a>
-                    </li>
-                {% endif %}
-            </ul>
-        </div>
-    </nav>
+{% block content %}
 
-    <!-- Search bar -->
-    <div class="container mt-5">
+
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+    <a class="navbar-brand" href="{% url 'home' %}">Homenix</a>
+    <div class="collapse navbar-collapse justify-content-end">
+        <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'properties' %}">Properties</a></li>
+
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a href="{% url 'post_ad' %}" class="btn btn-success me-2">Post Ad</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'logout' %}" class="btn btn-outline-light">Logout</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a href="{% url 'login' %}" class="btn btn-primary me-2">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'register' %}" class="btn btn-outline-primary">Register</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<div class="container mt-5">
+    <h1>Welcome to Homenix</h1>
+    <p>Your one-stop platform for property listings.</p>
+</div>
+
+
+<!-- Search bar -->
+<div class="container mt-5">
+    <form method="GET" action="{% url 'home' %}">
         <div class="row mb-3">
             <div class="col-md-8">
-                <input type="text" class="form-control" placeholder="Search properties..." id="searchInput">
+                <input type="text" name="q" class="form-control" placeholder="Search properties..." value="{{ request.GET.q }}">
             </div>
             <div class="col-md-4">
-                <button class="btn btn-primary w-100" onclick="showFilters()">Search</button>
+                <button class="btn btn-primary w-100" type="submit">Search</button>
             </div>
         </div>
+    </form>
+</div>
 
-        <!-- Hidden Filters -->
-        <div id="filters" class="card p-3">
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label for="location" class="form-label">Location</label>
-                    <select class="form-select" id="location">
-                        <option value="">Select Location</option>
-                        <option>Chennai</option>
-                        <option>Coimbatore</option>
-                        <option>Madurai</option>
-                    </select>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label for="price" class="form-label">Price</label>
-                    <select class="form-select" id="price">
-                        <option value="">Select Price Range</option>
-                        <option>Below ₹20 Lakhs</option>
-                        <option>₹20L - ₹50L</option>
-                        <option>₹50L - ₹1Cr</option>
-                        <option>Above ₹1Cr</option>
-                    </select>
-                </div>
+
+    <!-- Hidden Filters -->
+    <div id="filters" class="card p-3" style="display: none;">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="location" class="form-label">Location</label>
+                <select class="form-select" id="location">
+                    <option value="">Select Location</option>
+                    <option>Chennai</option>
+                    <option>Coimbatore</option>
+                    <option>Madurai</option>
+                </select>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="price" class="form-label">Price</label>
+                <select class="form-select" id="price">
+                    <option value="">Select Price Range</option>
+                    <option>Below ₹20 Lakhs</option>
+                    <option>₹20L - ₹50L</option>
+                    <option>₹50L - ₹1Cr</option>
+                    <option>Above ₹1Cr</option>
+                </select>
             </div>
         </div>
     </div>
+</div>
+
+
+{% for ad in ads %}
+  <!-- render each ad -->
+{% empty %}
+  <p>No properties available right now.</p>
+{% endfor %}
 
 
 
+
+<!-- Property Listings -->
 <div class="container mt-5">
     <div class="row">
         {% for ad in ads %}
-            <div class="col-md-3 mb-4">  <!-- 4 ads per row -->
+            <div class="col-md-3 mb-4">
                 <div class="card h-100">
                     {% if ad.image %}
                         <img src="{{ ad.image.url }}" class="card-img-top" alt="{{ ad.title }}" style="height: 200px; object-fit: cover;">
@@ -99,14 +112,9 @@
     </div>
 </div>
 
-
-
-
-    <!-- JavaScript -->
-    <script>
-        function showFilters() {
-            document.getElementById("filters").style.display = "block";
-        }
-    </script>
-</body>
-</html>
+<script>
+    function showFilters() {
+        document.getElementById("filters").style.display = "block";
+    }
+</script>
+{% endblock %}

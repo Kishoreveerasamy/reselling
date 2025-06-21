@@ -1,15 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
 {% extends 'base.html' %}
-{% block content %}   
+
+{% block content %}
 <style>
-    .center-form-container{
+    .center-form-container {
         max-width: 1000px;
         margin: 50px auto;
         padding: 5px;
@@ -19,34 +12,6 @@
         box-shadow: 0 0 10px rgba(214, 7, 7, 0.1);
     }
 </style>
-<body>
-
-<!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
-        <a class="navbar-brand" href="#">Homenix</a>
-        <div class="collapse navbar-collapse justify-content-end">
-            <ul class="navbar-nav">
-                <li class="nav-item"><a class="nav-link" href="#">About</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Properties</a></li>
-
-                {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a href="{% url 'post_ad' %}" class="btn btn-success me-2">Post Ad</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{% url 'logout' %}" class="btn btn-outline-light">Logout</a>
-                    </li>
-                {% else %}
-                    <li class="nav-item">
-                        <a href="{% url 'login' %}" class="btn btn-primary me-2">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{% url 'register' %}" class="btn btn-outline-primary">Register</a>
-                    </li>
-                {% endif %}
-            </ul>
-        </div>
-    </nav>
 
 <div class="container">
     <div class="center-form-container">
@@ -59,25 +24,3 @@
     </div>
 </div>
 {% endblock %}
-
-
-</body>
-</html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
