@@ -98,3 +98,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 STATICFILES_DIRS = [BASE_DIR / "static"]
+
+
+ALLOWED_HOSTS = ['.onrender.com', '127.0.0.1']
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+
+
+
