@@ -1,45 +1,14 @@
-{% extends "base.html" %}
+{% extends "homenix/base.html" %}
 
 {% block content %}
-
-
-
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
-    <a class="navbar-brand" href="{% url 'home' %}">Homenix</a>
-    <div class="collapse navbar-collapse justify-content-end">
-        <ul class="navbar-nav">
-            <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'properties' %}">Properties</a></li>
-
-            {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <a href="{% url 'post_ad' %}" class="btn btn-success me-2">Post Ad</a>
-                </li>
-                <li class="nav-item">
-                    <a href="{% url 'logout' %}" class="btn btn-outline-light">Logout</a>
-                </li>
-            {% else %}
-                <li class="nav-item">
-                    <a href="{% url 'login' %}" class="btn btn-primary me-2">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a href="{% url 'register' %}" class="btn btn-outline-primary">Register</a>
-                </li>
-            {% endif %}
-        </ul>
-    </div>
-</nav>
-
 <!-- Hero Section -->
 <div class="container mt-5">
     <h1>Welcome to Homenix</h1>
     <p>Your one-stop platform for property listings.</p>
 </div>
 
-
 <!-- Search bar -->
-<div class="container mt-5">
+<div class="container mt-4">
     <form method="GET" action="{% url 'home' %}">
         <div class="row mb-3">
             <div class="col-md-8">
@@ -52,45 +21,8 @@
     </form>
 </div>
 
-
-    <!-- Hidden Filters -->
-    <div id="filters" class="card p-3" style="display: none;">
-        <div class="row">
-            <div class="col-md-6 mb-3">
-                <label for="location" class="form-label">Location</label>
-                <select class="form-select" id="location">
-                    <option value="">Select Location</option>
-                    <option>Chennai</option>
-                    <option>Coimbatore</option>
-                    <option>Madurai</option>
-                </select>
-            </div>
-            <div class="col-md-6 mb-3">
-                <label for="price" class="form-label">Price</label>
-                <select class="form-select" id="price">
-                    <option value="">Select Price Range</option>
-                    <option>Below ₹20 Lakhs</option>
-                    <option>₹20L - ₹50L</option>
-                    <option>₹50L - ₹1Cr</option>
-                    <option>Above ₹1Cr</option>
-                </select>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-{% for ad in ads %}
-  <!-- render each ad -->
-{% empty %}
-  <p>No properties available right now.</p>
-{% endfor %}
-
-
-
-
 <!-- Property Listings -->
-<div class="container mt-5">
+<div class="container mt-4">
     <div class="row">
         {% for ad in ads %}
             <div class="col-md-3 mb-4">
@@ -103,18 +35,19 @@
                         <p class="card-text">{{ ad.description|truncatewords:15 }}</p>
                         <p><strong>Price:</strong> ₹{{ ad.price }}</p>
                         <p><strong>Contact:</strong> {{ ad.contact }}</p>
+
+                        {% if ad.user == request.user %}
+                            <a href="{% url 'delete_ad' ad.id %}" class="btn btn-danger btn-sm mt-2"
+                               onclick="return confirm('Are you sure you want to delete this ad?');">
+                               Delete
+                            </a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
         {% empty %}
-            <p>No ads available.</p>
+            <p class="text-center">No properties available right now.</p>
         {% endfor %}
     </div>
 </div>
-
-<script>
-    function showFilters() {
-        document.getElementById("filters").style.display = "block";
-    }
-</script>
 {% endblock %}

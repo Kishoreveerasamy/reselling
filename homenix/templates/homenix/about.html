@@ -1,8 +1,14 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 <div class="container mt-5">
-    <h2>About Homenix</h2>
-    <p>Homenix is your trusted platform for buying, selling, or renting properties with ease. Whether you're looking for a new apartment, a commercial property, or a cozy home, we help you connect with real estate deals in your area.</p>
+    <h2 class="text-center">About Homenix</h2>
+    <p class="lead text-center">
+        Homenix is your trusted platform for buying, selling, or renting properties with ease. Whether you're looking for a new apartment, a commercial property, or a cozy home, we help you connect with real estate deals in your area.
+    </p>
+    <div class="text-center mt-4">
+        <img src="{% static 'images/homenix_about.jpg' %}" class="img-fluid rounded" alt="About Homenix" style="max-height: 300px;">
+    </div>
 </div>
 {% endblock %}

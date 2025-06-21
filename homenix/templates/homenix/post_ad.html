@@ -1,21 +1,28 @@
-{% extends 'base.html' %}
+{% extends "homenix/base.html" %}
 
 {% block content %}
 <style>
     .center-form-container {
-        max-width: 1000px;
+        max-width: 800px;
         margin: 50px auto;
-        padding: 5px;
+        padding: 20px;
         border: 2px solid #2b3035;
         border-radius: 10px;
         background-color: #f8f9fa;
-        box-shadow: 0 0 10px rgba(214, 7, 7, 0.1);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 </style>
 
 <div class="container">
     <div class="center-form-container">
         <h3 class="text-center mb-4">Post a Property Ad</h3>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-info">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}

@@ -5,7 +5,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('homenix.urls')),  # Includes all routes from homenix
+    path('', include('homenix.urls')),  # Home and other pages come from homenix app
 ]
 
 # Serve media files during development

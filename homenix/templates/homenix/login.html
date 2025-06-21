@@ -9,13 +9,13 @@
 
 <style>
     .log {
-        max-width: 1000px;
+        max-width: 600px;
         margin: 50px auto;
-        padding: 5px;
+        padding: 20px;
         border: 2px solid #2b3035;
         border-radius: 10px;
         background-color: #f8f9fa;
-        box-shadow: 0 0 10px rgba(214, 7, 7, 0.1);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 </style>
 
@@ -50,34 +50,30 @@
 
 <!-- Login Form -->
 <div class="log">
-  <div class="container mt-5">
-    <div class="row justify-content-center">
-      <div class="col-md-5">
-        <h3 class="text-center mb-4">🔐 Login</h3>
+  <div class="container mt-4">
+    <h3 class="text-center mb-4">🔐 Login</h3>
 
-        {% if messages %}
-          {% for message in messages %}
-            <div class="alert alert-danger">{{ message }}</div>
-          {% endfor %}
-        {% endif %}
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-danger text-center">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
 
-        <form method="post">
-          {% csrf_token %}
-          <div class="mb-3">
-            <label class="form-label">Email</label>
-            <input type="text" name="username" class="form-control" required placeholder="Enter your email">
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Password</label>
-            <input type="password" name="password" class="form-control" required>
-          </div>
-          <button type="submit" class="btn btn-success w-100">Login</button>
-        </form>
-
-        <div class="text-center mt-3">
-          <small>Don't have an account? <a href="{% url 'register' %}">Register</a></small>
-        </div>
+    <form method="post">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input type="text" name="username" class="form-control" required placeholder="Enter your email">
       </div>
+      <div class="mb-3">
+        <label class="form-label">Password</label>
+        <input type="password" name="password" class="form-control" required>
+      </div>
+      <button type="submit" class="btn btn-success w-100">Login</button>
+    </form>
+
+    <div class="text-center mt-3">
+      <small>Don't have an account? <a href="{% url 'register' %}">Register</a></small>
     </div>
   </div>
 </div>
