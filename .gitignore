@@ -22,3 +22,6 @@ media/
 # Ignore OS files
 .DS_Store
 Thumbs.db
+
+
+db.sqlite3
